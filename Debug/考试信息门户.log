@@ -1,5 +1,0 @@
-﻿  main.cpp
-E:\SoftwareProject\考试信息门户\考试信息门户\main.cpp(514,9): warning C4101: “r”: 未引用的局部变量
-E:\SoftwareProject\考试信息门户\考试信息门户\main.cpp(655,10): warning C4101: “r”: 未引用的局部变量
-E:\SoftwareProject\考试信息门户\考试信息门户\main.cpp(671,4): warning C4102: “mnu”: 未引用的标签
-  考试信息门户.vcxproj -> E:\SoftwareProject\考试信息门户\Debug\考试信息门户.exe

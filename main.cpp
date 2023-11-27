@@ -143,7 +143,7 @@ public:
 			ofstream paper;
 			paper.open(file_of_papers[ch - 1]);
 			if (!paper) {
-				cout << "Something went wrong Try again...";
+				cout << "Something went wrong Try again...\n";
 			}
 			// paper << subject[ch-1] << " " << time_allowed << " " << endl;
 
@@ -161,9 +161,10 @@ public:
 
 			cout << "Total marks : " << total_marks;
 			paper.close();
+			cout << endl;
 		}
 		else {
-			cout << "class Not found";
+			cout << "class Not found" << endl;
 		}
 	}
 
@@ -179,7 +180,7 @@ protected:
 	int d,
 		m,
 		y;
-	int starting_time,
+	string starting_time,
 		ending_time;
 public:
 	//For Date_sheet
@@ -223,7 +224,7 @@ private:
 	int choice;
 	bool isFound = 0;
 	string Class;
-	int ret = 0;
+	//int ret;
 
 
 	string teacher_name;
@@ -233,9 +234,9 @@ private:
 public:
 
 	void make_datesheet() {
-
+		int k;
 		do {
-			system("cls");
+			//system("clear");
 			cout << "\t\t\t----------Welcome admin----------- \n\n";
 			cout << "\t\tMake Date sheet \n";
 			cout << "Enter the class Name :";
@@ -261,16 +262,17 @@ public:
 				cout << "Enter Ending Time : ";
 				cin >> ending_time;
 
-				date_sheet << subject[i] << " " << d << " " << m << " " << y << " " << starting_time << " " << ending_time << " ";
+				date_sheet << subject[i] << " " << d << " " << m << " " << y << " " << starting_time << " " << ending_time << "\n";
 			}
+			cout << "Enter 1 to recover your datasheet or back\n";
+			cin >> k;
 
-			cin >> ret;
-
-		} while (ret == 1);
+		} while (k == 1);
 	}
 
 
 	void add_student() {
+		int k;
 		do {
 			cout << "\t\tAdd Students \n";
 			cout << "Enter Student Name: ";
@@ -288,14 +290,14 @@ public:
 				cout << "File Not Found or permission denied.";
 			}
 			else {
-				Add_student << student_name << " " << student_email << " " << student_class << " " << student_rollNO << " ";
+				Add_student << student_name << " " << student_email << " " << student_class << " " << student_rollNO << "\n";
 			}
 
 			Add_student.close();
 
-			cout << "Enter 1 to add another student else back";
-			cin >> ret;
-		} while (ret == 1);
+			cout << "Enter 1 to add another student else back" << endl;
+			cout << "Enter your choice : " ;cin >> k;
+		} while (k == 1);
 
 	}
 	// void view_student() {
@@ -317,8 +319,9 @@ public:
 	// }
 
 	void add_teacher() {
+		int k;
 		do {
-			system("cls");
+			system("clear");
 
 			cout << "Enter Teacher Name: ";
 			cin >> teacher_name;
@@ -341,14 +344,14 @@ public:
 				cout << "File Not Found Something went wrong Try again.";
 			}
 			else {
-				teacher << teacher_name << " " << teacher_email << " " << subject[ch] << " " << teach_Code << " ";
+				teacher << teacher_name << " " << teacher_email << " " << subject[ch] << " " << teach_Code << "\n";
 			}
 
 			teacher.close();
 
-			cout << "Enter 1 to add another student else back";
-			cin >> ret;
-		} while (ret == 1);
+			cout << "Enter 1 to add another teacher else back : " << endl;
+			cout << "Enter your choice : " ;cin >> k;
+		} while (k == 1);
 	}
 
 
@@ -363,7 +366,7 @@ public:
 		int ret;
 
 		do {
-			system("cls");
+			//system("clear");
 			if (user == admin_username && pass == admin_password) {
 				cout << "Press\n1.For Add Student \n";
 				cout << "2.For Add Teacher \n";
@@ -374,19 +377,38 @@ public:
 				{
 				case 1:
 					add_student();
+					ret = 0;
 					break;
 				case 2:
 					add_teacher();
+					ret = 0;
 					break;
 				case 3:
 					make_datesheet();
+					ret = 0;
 					break;
 				case 4:
 					menu();
 				default:
 					cout << "Invalid Choice Press 0 to Try Again else Exit..";
-					cin >> ret;
+					cout << "Enter your choice : " ;cin >> ret;
 					break;
+				}
+			}
+			//new
+			else{
+				cout << "Wrong! Please retry or back home!\n";
+				cout << "1. retry\n";
+				cout << "2. back\n";
+				int k;
+				cout << "Enter your choice : " ;cin >> k;
+				if(k == 1){
+					ret = 0;
+					cout << "Enter Username  : "; cin >> user;
+					cout << "Enter Password : "; cin >> pass;
+				}
+				else{
+					ret = 1;
 				}
 			}
 		} while (ret == 0);
@@ -417,39 +439,45 @@ public:
 		usr = user;
 
 		if (check::check_teacher(user, pasw)) {
-		teach_menu:
-			system("cls");
-			cout << "WELCOME TEACHERS....." << endl;
-			cout << "Press\n1.To Make paper \n";
-			cout << "2.To Check paper \n";
-			cout << "3.To  View DateSheet\n4.To back to main Menu ";
-			cin >> choice;
-			switch (choice)
-			{
-			case 1:
-				system("cls");
-				paper::make_paper();
-				break;
-			case 2:
-				system("cls");
-				check_paper();
-				break;
-			case 3:
-				system("cls");
-				date_sheet::view_datesheet();
-				char r;
-				cout << "\nPress Any key to Go back :- "; cin >> r;
-				goto teach_menu;
-				break;
-			case 4:
-				menu();
-			default:
-				cout << "INVALID CHOICE";
-				break;
-			}
+			do{
+				//system("clear");
+				cout << "WELCOME TEACHERS....." << endl;
+				cout << "Press\n1.To Make paper \n";
+				cout << "2.To Check paper \n";
+				cout << "3.To  View DateSheet\n4.To back to main Menu \n";
+				cin >> choice;
+				switch (choice)
+				{
+				case 1:
+					//system("clear");
+					paper::make_paper();
+					ret = 0;
+					break;
+				case 2:
+					//system("clear");
+					check_paper();
+					ret = 0;
+					break;
+				case 3:
+					//system("clear");
+					date_sheet::view_datesheet();
+					cout << "\nPress 0 to Go back :- "; cin >> ret;
+					break;
+				case 4:
+					ret = 1;
+					break;
+				default:
+					cout << "INVALID CHOICE";
+					break;
+				}
+			}while(ret == 0);
 		}
 		else {
-			cout << "Emp No. Not found Ask Admin to register You Or try again.\nThanks...";
+			cout << "Emp No. Not found Ask Admin to register You Or try again.\nPlease Enter 1 to try again or 0 to go back\n";
+			int k;
+			cout << "Enter your choice : " ;cin >> k;
+			if(k == 1)
+				log();
 		}
 	}
 
@@ -462,59 +490,67 @@ public:
 		file.open("bin/student.txt");
 		res.open("result.txt", ios::app);
 		if (!file) {
-			cout << "Something went wrong Try again...";
-
+			cout << "Something went wrong Try again...\n";
+			return;
 		}
 		string p = check::check_subject(usr);
 		cout << "Check Paper of " << p << endl;
 		cout << "Select Student To Check his/her Paper : " << endl;
+		file >> n >> e >> s >> r;
 		while (!file.eof()) {
-			file >> n >> e >> s >> r;
 			cout << "Name : " << n << ";  Roll Number : " << r << endl;
+			file >> n >> e >> s >> r;
 		}
 		cout << "\nEnter Roll Number to Check : ";
 		cin >> check_roll;
+		int k = 0;
+		do{
+			if (check::check_student(check_roll, check_roll)) {
+				for (int i = 0; i <= 5; i++) {
+					if (p == subject[i]) {
+						temp_subject = subject[i];
+						ans_sht.open(Ans_sheet[i]);
 
-		if (check::check_student(check_roll, check_roll)) {
-			for (int i = 0; i <= 5; i++) {
-				if (p == subject[i]) {
-					temp_subject = subject[i];
-					ans_sht.open(Ans_sheet[i]);
+						if (!ans_sht) {
 
-					if (!ans_sht) {
-
-						cout << "Something went wrong Try again...";
-
-					}
-					int j = 0;
-					while (!ans_sht.eof()) {
-						j++;
+							cout << "Something went wrong Try again...\n";
+							return;
+						}
+						int j = 0;
 						getline(ans_sht, a);
-						getline(ans_sht, b);
-						cout << "Answer of " << j << " Question : " << endl << b << endl;
-					}
+						while (getline(ans_sht, b)) {
+							j++;
+							//getline(ans_sht, b);
+							cout << "Answer of " << j << " Question : " << endl << b << endl;
+						}
 
-					cout << "Enter The Total marks for this student : ";
-					cin >> obtained_marks;
-					res << temp_subject << " " << check_roll << " " << obtained_marks;
+						cout << "Enter The Total marks for this student : ";
+						cin >> obtained_marks;
+						res << temp_subject << " " << check_roll << " " << obtained_marks << "\n";
+
+
+					}
 
 
 				}
-
-
+				cout << "The student " << check_roll <<"Total mark is " << obtained_marks << ", Please enter 1 to go back" << endl;
+				cout << "Enter your choice : " ;cin >> k;
 			}
 
-		}
 
 
 
-
-		else {
-			cout << "please enter correct roll no. Press 1 to go back";
-			char r;
-			menu();
-		}
-
+			else {
+				cout << "please enter correct roll no. Press 0 to try again or 1 to go back\n";
+				//int k;
+				cout << "Enter your choice : " ;cin >> k;
+				if(k == 0){
+					cout << "Enter Roll Number to Check : ";
+					cin >> check_roll;
+					cout << "\n";
+				}
+			}
+		}while(k == 0);
 
 	}
 
@@ -552,20 +588,20 @@ public:
 			ans.open(Ans_sheet[ch - 1], ios::app);
 			string str;
 			if (!file || !ans) {
-				cout << "Something went wrong Try again...";
+				cout << "Something went wrong Try again..." << endl;
 			}
 			else {
 				string q; string m;
 				ans << valid << endl;
 				cin.ignore();
-				while (!file.eof())
+				while (getline(file, q))
 				{
-					getline(file, q);
+					//getline(file, q);
 					getline(file, m);
 					cout << "Q : " << q << "\t\t\t Marks : " << m << endl;
 					cout << "Ans : ";
 					cin.getline(answer, 256);
-					cout << answer << endl;
+					//cout << answer << endl;
 					ans << answer << endl;
 				}
 				file.close();
@@ -581,18 +617,19 @@ public:
 	}
 
 
-
 	void login(int user, int pasw) {
 		valid = user;
 		if (check::check_student(user, pasw) == 1) {
-		st_menu:
+		//st_menu:
 			do {
 
-				system("cls");
+				//system("clear");
 				cout << "WELCOME " << user << endl;
 				cout << "Press\n1. To View Date_sheet \n";
 				cout << "2. To Give Paper \n";
 				cout << "3. To  View Reults\n";
+				//cout << "4. To View Your Test Record\n";
+				cout << "4. To Back\n";
 				cin >> choice;
 				switch (choice)
 				{
@@ -600,18 +637,24 @@ public:
 					date_sheet::view_datesheet();
 					char r;
 					cout << "\nPress Any key to Go back :- "; cin >> r;
-					goto st_menu;
+					ret = 1;
+					//goto st_menu;
 					break;
 				case 2:
 					give_paper();
+					ret = 1;
 					break;
 				case 3:
 					result();
+					ret = 1;
+					break;
+				case 4:
+					ret = 0;
 					break;
 				default:
 					cout << "INVALID CHOICE";
 					cout << "press 1 to try again";
-					cin >> ret;
+					cout << "Enter your choice : " ;cin >> ret;
 					break;
 				}
 			} while (ret == 1);
@@ -620,7 +663,7 @@ public:
 			cout << "Roll No. Not found Ask Admin to register You Or try again.\nPress any Key to go back : ";
 			char r;
 			cin >> r;
-			menu();
+			return;
 		}
 
 
@@ -631,7 +674,7 @@ public:
 		int choice;
 		string sab;
 		int rs, om;
-		system("cls");
+		//system("clear");
 		cout << "Select Subject to View your result : " << endl;
 		for (int i = 0; i <= 4; i++) {
 			cout << "Press " << i + 1 << " to " << subject[i] << endl;
@@ -642,19 +685,19 @@ public:
 
 			ifstream res;
 			res.open("result.txt");
+			res >> sab >> rs >> om;
 			while (!res.eof()) {
-
-				res >> sab >> rs >> om;
 				if (valid == rs && sab == subject[choice]) {
-					cout << "Your Total MArks are : " << om;
+					cout << "Your Total MArks are : " << om << endl;
 					isf = 1;
 				}
+				res >> sab >> rs >> om;
 			}
 			if (!isf) {
 				cout << "\nPaper is not check Yet. \n";
 				char r;
 				cout << "Press Any key to go back : ";
-				menu();
+				return;
 			}
 		}
 
@@ -670,7 +713,7 @@ void menu() {
 	int ret;
 mnu:
 	do {
-		system("cls");
+		//system("clear");
 		cout << "==========\t\t\t\tEXAM PORTAL\t\t\t\t=========\nPress\n";
 
 		cout << "1. For Admin" << endl;
@@ -680,25 +723,28 @@ mnu:
 		cout << "Select : "; cin >> choice;
 		switch (choice)
 		{
-		case 1:
-			obj = new admin;
-			obj->log();
-			break;
-		case 2:
-			obj = new student;
-			obj->log();
-			break;
-		case 3:
-			obj = new teacher;
-			obj->log();
-			break;
-		case 4:
-			cout << "\n\tThanks for Using//\n";
-			exit(1);
-		default:
-			cout << "Invalid Choice Press 0 to Try Again else Exit..";
-			cin >> ret;
-			break;
+			case 1:
+				obj = new admin;
+				obj->log();
+				ret = 0;
+				break;
+			case 2: 
+				obj = new student;
+				obj->log();
+				ret = 0;
+				break;
+			case 3:
+				obj = new teacher;
+				obj->log();
+				ret = 0;
+				break;
+			case 4:
+				cout << "\n\tThanks for Using//\n";
+				exit(1);
+			default:
+				cout << "Invalid Choice Press 0 to Try Again else Exit..";
+				cin >> ret;
+				break;
 		}
 	} while (ret == 0);
 
